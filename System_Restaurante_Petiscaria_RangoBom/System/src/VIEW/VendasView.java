@@ -71,6 +71,11 @@ public class VendasView extends javax.swing.JPanel {
 
         formaPgCombo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         formaPgCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão Crédito", "Cartão Débito", "Ticket" }));
+        formaPgCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formaPgComboActionPerformed(evt);
+            }
+        });
 
         confirmaButton.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         confirmaButton.setText("Confirmar");
@@ -190,6 +195,10 @@ public class VendasView extends javax.swing.JPanel {
             ..
         }
     }//GEN-LAST:event_confirmaButtonActionPerformed
+
+    private void formaPgComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formaPgComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formaPgComboActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
