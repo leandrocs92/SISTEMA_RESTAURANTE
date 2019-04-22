@@ -7,12 +7,12 @@ public class Pessoa {
     private String cpf;
     private String rg;
     private String tel;
-    private String endereco;
+    private Endereco endereco;
     private boolean cargo;
     private String email;
     private String senha;
 
-    public Pessoa(String nome, String cpf, String rg, String tel, String endereco, boolean cargo, String email, String senha) {
+    public Pessoa(String nome, String cpf, String rg, String tel, Endereco endereco, boolean cargo, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
@@ -39,7 +39,7 @@ public class Pessoa {
         return tel;
     }
 
-    public String getEndereco() {
+    public Endereco getEndereco() {
         return endereco;
     }
 
@@ -63,7 +63,7 @@ public class Pessoa {
         this.tel = tel;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 

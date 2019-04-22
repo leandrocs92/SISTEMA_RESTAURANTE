@@ -5,10 +5,16 @@
  */
 package CONTROLLER;
 
+import DAO.PessoaDAO;
+import MODEL.Pessoa;
+
 /**
  *
  * @author LEANDRO
  */
 public class PessoaController {
-    
+    public static boolean criaPessoa(Pessoa novaPessoa){
+        boolean resposta = PessoaDAO.criaPessoa(novaPessoa);
+        return resposta;
+    }
 }

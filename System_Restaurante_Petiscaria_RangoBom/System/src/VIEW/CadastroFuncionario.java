@@ -1,5 +1,11 @@
 package VIEW;
 
+import CONTROLLER.PessoaController;
+import MODEL.Endereco;
+import MODEL.Pessoa;
+import java.awt.Color;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class CadastroFuncionario extends javax.swing.JPanel {
@@ -13,6 +19,106 @@ public class CadastroFuncionario extends javax.swing.JPanel {
     public CadastroFuncionario(JScrollPane painelTrocas) {
         initComponents();
         this.painelTrocas = painelTrocas;
+    }
+
+    public boolean varreduraCampos() {
+        if (nomeText.getText().isEmpty()) {
+            nomeText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (cpfText.getText().isEmpty()) {
+            cpfText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (rgText.getText().isEmpty()) {
+            rgText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        if (telefoneText.getText().isEmpty()) {
+            telefoneText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (ruaText.getText().isEmpty()) {
+            ruaText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (numEnderecoText.getText().isEmpty()) {
+            numEnderecoText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (bairroText.getText().isEmpty()) {
+            bairroText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (complementoText.getText().isEmpty()) {
+            complementoText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (referenciaText.getText().isEmpty()) {
+            referenciaText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (cepText.getText().isEmpty()) {
+            cepText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (cidadeText.getText().isEmpty()) {
+            cidadeText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (estadoText.getText().isEmpty()) {
+            estadoText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (emailText.getText().isEmpty()) {
+            emailText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (senhaText.getText().isEmpty()) {
+            senhaText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (respSegText.getText().isEmpty()) {
+            respSegText.setBackground(Color.red);
+            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos de cadastro!", "Preenchimento com erro!", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public void limpaCampos() {
+        nomeText.setText("");
+        cpfText.setText("");
+        rgText.setText("");
+        telefoneText.setText("");
+        ruaText.setText("");
+        numEnderecoText.setText("");
+        bairroText.setText("");
+        complementoText.setText("");
+        referenciaText.setText("");
+        cepText.setText("");
+        cidadeText.setText("");
+        estadoText.setText("");
+        emailText.setText("");
+        senhaText.setText("");
+        respSegText.setText("");
+        checkAdmin.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -141,30 +247,21 @@ public class CadastroFuncionario extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(208, Short.MAX_VALUE)
-                .addComponent(cadastrarFunc)
-                .addGap(142, 142, 142)
-                .addComponent(cancelarFunc)
-                .addGap(294, 294, 294))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(156, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(255, 255, 255))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cadastrarFunc)
+                            .addGap(142, 142, 142)
+                            .addComponent(cancelarFunc)
+                            .addGap(259, 259, 259))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addGap(18, 18, 18)
                                 .addComponent(rgText, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(nomeText, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(checkAdmin))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
@@ -227,8 +324,18 @@ public class CadastroFuncionario extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(senhaText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel19)))
-                        .addGap(35, 35, 35))))
+                                .addComponent(jLabel19))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(255, 255, 255))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(nomeText, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(42, 42, 42)
+                            .addComponent(checkAdmin)
+                            .addGap(144, 144, 144)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +347,7 @@ public class CadastroFuncionario extends javax.swing.JPanel {
                     .addComponent(jLabel2)
                     .addComponent(nomeText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkAdmin))
-                .addGap(56, 56, 56)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cpfText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -299,7 +406,7 @@ public class CadastroFuncionario extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarFunc)
                     .addComponent(cancelarFunc))
-                .addGap(107, 107, 107))
+                .addGap(145, 145, 145))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -330,24 +437,15 @@ public class CadastroFuncionario extends javax.swing.JPanel {
             retornoVer = varreduraCampos();
         }
         //cria pessoa
-        Endereco novoEnd;
-        String nasc = nascimentoText.getText();
-        String[] datNasc = nasc.split("/");
-        int dia = Integer.parseInt(datNasc[0]);
-        int mes = Integer.parseInt(datNasc[1]);
-        int ano = Integer.parseInt(datNasc[2]);
-        Calendar novoCalendar = Calendar.getInstance();
-        novoCalendar.set(Calendar.DAY_OF_MONTH, dia);
-        novoCalendar.set(Calendar.MONTH, mes);
-        novoCalendar.set(Calendar.YEAR, ano);
-        Date dataNascimento = novoCalendar.getTime();
-        Pessoa novaPessoa = new Pessoa(nomeText.getText(), cpfText.getText(), rgText.getText(), pisText.getText(),
-            emailText.getText(), telefoneText.getText(), dataNascimento,
-            novoEnd = new Endereco(ruaText.getText(), bairroText.getText(), estadoText.getText(), cidadeText.getText(), cepText.getText(),
-                complementoText.getText(), referenciaText.getText(), Integer.parseInt(numEnderecoText.getText())), senhaText.getText(), respSegText.getText(), (String) pergSegCombo.getSelectedItem());
+        boolean admin;
         if (checkAdmin.isSelected()) {
-            novaPessoa.setAdmin(true);
+            admin = true;
+        } else {
+            admin = false;
         }
+        Endereco novoEnd = new Endereco(ruaText.getText(), bairroText.getText(), estadoText.getText(), cidadeText.getText(), cepText.getText(), complementoText.getText(), referenciaText.getText(), Integer.parseInt(numEnderecoText.getText()));
+        Pessoa novaPessoa = new Pessoa(nomeText.getText(), cpfText.getText(), rgText.getText(), telefoneText.getText(), novoEnd, admin, emailText.getText(), senhaText.getText());
+
         if (PessoaController.criaPessoa(novaPessoa)) {
             JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso.", "Usuário cadastrado!", JOptionPane.INFORMATION_MESSAGE);
             limpaCampos();
