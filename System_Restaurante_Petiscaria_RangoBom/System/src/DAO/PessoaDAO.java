@@ -6,45 +6,65 @@
 package DAO;
 
 import MODEL.Pessoa;
+import TOOLS.FabricaConexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author LEANDRO
  */
 public class PessoaDAO {
-    public static boolean criaPessoa(Pessoa novaPessoa){
-        boolean resposta;
-         public static void criaPessoa(Pessoa novaPessoa) {
-        try (Connection con = FabricaConexao.criaConexao()) {
-            String sql = "insert into pessoa (nome, datanascimento, cpf, rg, numeropis, email, telefone, "
-                    + "senha, rua, numero, bairro, complemento, referencia, cep, cidade, estado, admin, respseguranca, pergseguranca) "
-                    + "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement insere = con.prepareStatement(sql);
-            insere.setString(1, novaPessoa.getNome());
-            insere.setString(3, novaPessoa.getCpf());
-            insere.setString(4, novaPessoa.getRg());
-            insere.setString(6, novaPessoa.getEmail());
-            insere.setString(7, novaPessoa.getTel());
-            insere.setString(8, novaPessoa.getSenha());
-            insere.setString(9, novaPessoa.getEndereco().getRua());
-            insere.setInt(10, novaPessoa.getEndereco().getNumero());
-            insere.setString(11, novaPessoa.getEndereco().getBairro());
-            insere.setString(12, novaPessoa.getEndereco().getComplemento());
-            insere.setString(13, novaPessoa.getEndereco().getReferencia());
-            insere.setString(14, novaPessoa.getEndereco().getCep());
-            insere.setString(15, novaPessoa.getEndereco().getCidade());
-            insere.setString(16, novaPessoa.getEndereco().getEstado());
-            insere.setBoolean(17, novaPessoa.isCargo());
-            insere.execute();
+
+    public static boolean criaPessoa(Pessoa novaPessoa) {
+        try {
+            if (!consultaCpf(novaPessoa.getCpf())) {
+                try (Connection con = FabricaConexao.criaConexao()) {
+                    String sql = "insert into pessoa (nome, cpf, rg, telefone, cargo, email, senha"
+                            + "values(?,?,?,?,?,?,?)";
+                    PreparedStatement insere = con.prepareStatement(sql);
+                    insere.setString(1, novaPessoa.getNome());
+                    insere.setString(2, novaPessoa.getCpf());
+                    insere.setString(3, novaPessoa.getRg());
+                    insere.setString(4, novaPessoa.getTel());
+                    insere.setBoolean(5, novaPessoa.isCargo());
+                    insere.setString(6, novaPessoa.getEmail());
+                    insere.setString(7, novaPessoa.getSenha());
+                    insere.execute();
+                } catch (SQLException ex) {
+                    System.err.println("Erro na execução da sql!!");
+                    ex.printStackTrace();
+                }
+                return true;
+            }
         } catch (SQLException ex) {
-            System.err.println("Erro na execução da sql!!");
-            ex.printStackTrace();
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return false;
     }
-        return resposta;
+
+    public static boolean consultaCpf(String cpf) throws SQLException {
+        int temp = 0;
+        String cpfBanco = "";
+        try (Connection con = FabricaConexao.criaConexao()) {
+            String sql = "select * from pessoa where cpf = ?";
+            PreparedStatement verifica = con.prepareStatement(sql);
+            verifica.setString(1, cpf);
+            ResultSet resultado = verifica.executeQuery();
+            while (resultado.next()) {
+                cpfBanco = resultado.getString("cpf");
+                temp++;
+            }
+            if (temp == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 }

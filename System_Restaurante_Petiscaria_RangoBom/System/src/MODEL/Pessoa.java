@@ -1,23 +1,20 @@
-
 package MODEL;
 
-
 public class Pessoa {
+
     private String nome;
     private String cpf;
     private String rg;
     private String tel;
-    private Endereco endereco;
     private boolean cargo;
     private String email;
     private String senha;
 
-    public Pessoa(String nome, String cpf, String rg, String tel, Endereco endereco, boolean cargo, String email, String senha) {
+    public Pessoa(String nome, String cpf, String rg, String tel, boolean cargo, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.tel = tel;
-        this.endereco = endereco;
         this.cargo = cargo;
         this.email = email;
         this.senha = senha;
@@ -37,10 +34,6 @@ public class Pessoa {
 
     public String getTel() {
         return tel;
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
     }
 
     public boolean isCargo() {
@@ -63,10 +56,6 @@ public class Pessoa {
         this.tel = tel;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public void setCargo(boolean cargo) {
         this.cargo = cargo;
     }
@@ -78,6 +67,5 @@ public class Pessoa {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
 }
