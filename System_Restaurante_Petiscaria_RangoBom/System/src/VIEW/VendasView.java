@@ -2,6 +2,8 @@
 package VIEW;
 
 import java.awt.Color;
+import java.awt.Event;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
@@ -11,11 +13,28 @@ public class VendasView extends javax.swing.JPanel {
     
     public VendasView() {
         initComponents();
+        carregaPagamento();
+        ultimaSelecao = 0;
+        controleRemocao = true;
     }
     
     public VendasView(JScrollPane painelTrocas){
         initComponents();
         this.painelTrocas = painelTrocas;
+    }
+    
+    private DefaultComboBoxModel<String> infoComboBox;
+    private int ultimaSelecao;
+    private boolean controleRemocao;
+
+    public void carregaPagamento() {
+        this.infoComboBox = new DefaultComboBoxModel<>();
+        //criando um link de ligação entre o vetor que controla o combobox e o combobox do usuário
+        this.formaPgCombo.setModel(infoComboBox);
+        this.infoComboBox.addElement("Dinheiro");
+        this.infoComboBox.addElement("Cartão Débito");
+        this.infoComboBox.addElement("Cartão Crédito");
+        this.infoComboBox.addElement("Ticket");
     }
     
     public boolean verificaCampos(){
@@ -31,7 +50,25 @@ public class VendasView extends javax.swing.JPanel {
         }
         return true;
     }
-
+    //responsável por verificar a opção selecionada pelo usuário
+    public String retornoOpcaoPagamento(String evento){
+        switch(evento){
+            case "Dinheiro":
+                return "Dinheiro";
+                
+            case "Cartão Débito":
+                return "Cartão Débito";
+                
+            case "Cartão Crédito":
+                return "Cartão Crédito";
+                
+            case "Ticket":
+                return "Ticket";
+                
+            default:
+                return "";
+        }
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,7 +80,7 @@ public class VendasView extends javax.swing.JPanel {
         quantLabel = new javax.swing.JLabel();
         quantText = new javax.swing.JTextField();
         formaPgLabel = new javax.swing.JLabel();
-        javax.swing.JComboBox<String> formaPgCombo = new javax.swing.JComboBox<>();
+        formaPgCombo = new javax.swing.JComboBox<>();
         confirmaButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -71,6 +108,12 @@ public class VendasView extends javax.swing.JPanel {
 
         formaPgCombo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         formaPgCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão Crédito", "Cartão Débito", "Ticket" }));
+        formaPgCombo.setAutoscrolls(true);
+        formaPgCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formaPgComboMouseClicked(evt);
+            }
+        });
         formaPgCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 formaPgComboActionPerformed(evt);
@@ -192,6 +235,7 @@ public class VendasView extends javax.swing.JPanel {
         if(retorno != false){
             JOptionPane.showMessageDialog(this, "Venda efetuada com sucesso!","Venda Efetuada!",JOptionPane.INFORMATION_MESSAGE);
         }else{
+            JOptionPane.showMessageDialog(this, "As informações não foram preenchidas corretamente!","Erro de Preenchimento!" ,JOptionPane.WARNING_MESSAGE);
             ..
         }
     }//GEN-LAST:event_confirmaButtonActionPerformed
@@ -200,12 +244,20 @@ public class VendasView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_formaPgComboActionPerformed
 
+    private void formaPgComboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formaPgComboMouseClicked
+            String evento = "";
+            //como pegar o evento
+            evt.getComponent();
+    }//GEN-LAST:event_formaPgComboMouseClicked
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarButton;
     private javax.swing.JLabel codigoLabel;
     private javax.swing.JTextField codigoText;
     private javax.swing.JButton confirmaButton;
+    private javax.swing.JComboBox<String> formaPgCombo;
     private javax.swing.JLabel formaPgLabel;
     private javax.swing.JList<String> itensVendaList;
     private javax.swing.JScrollPane jScrollPane1;
