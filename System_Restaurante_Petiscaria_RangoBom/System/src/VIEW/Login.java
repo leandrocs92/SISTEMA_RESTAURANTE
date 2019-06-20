@@ -3,6 +3,9 @@ package VIEW;
 import controler.PessoaController;
 import MODEL.Pessoa;
 import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
@@ -133,12 +136,18 @@ public class Login extends javax.swing.JPanel {
             String cpf = cpfText.getText();
             String senha = senhaPassword.getText();
             //verificando se possui o usuário no banco de dados e se as informações de login estão corretas
-            Pessoa novoUser = PessoaController.verificaUser(cpf, senha);
-            if (novoUser != null) {
-                VendasView telaVendas = new VendasView(novoUser, this.painelTrocas);
-            } else {
-                JOptionPane.showMessageDialog(null, "O usuário informado não está cadastrado no sistema.", "Usuário sem cadastro!", JOptionPane.ERROR_MESSAGE);
+            Pessoa novoUser;
+            try {
+                novoUser = PessoaController.verificaUser(cpf, senha);
+                if (novoUser != null) {
+                    VendasView telaVendas = new VendasView(novoUser, this.painelTrocas);
+                } else {
+                    JOptionPane.showMessageDialog(null, "O usuário informado não está cadastrado no sistema.", "Usuário sem cadastro!", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException ex) {
+
             }
+
         } else {
             JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente, favor preenche-los.", "Campos vazios!", JOptionPane.ERROR_MESSAGE);
             if (cpfText.getText().isEmpty()) {

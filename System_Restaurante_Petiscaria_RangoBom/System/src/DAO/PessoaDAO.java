@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  */
 public class PessoaDAO {
 
+    private static Pessoa usuario;
     public static boolean criaPessoa(Pessoa novaPessoa) {
         try {
             if (!consultaCpf(novaPessoa.getCpf())) {
@@ -51,6 +52,7 @@ public class PessoaDAO {
     public static boolean consultaCpf(String cpf) throws SQLException {
         int temp = 0;
         String cpfBanco = "";
+        usuario = new Pessoa();
         try (Connection con = FabricaConexao.criaConexao()) {
             String sql = "select * from pessoa where cpf = ?";
             PreparedStatement verifica = con.prepareStatement(sql);
@@ -59,12 +61,30 @@ public class PessoaDAO {
             while (resultado.next()) {
                 cpfBanco = resultado.getString("cpf");
                 temp++;
+                String nome = resultado.getString("nome");
+                String cpfUser = resultado.getString("cpf");
+                String rg = resultado.getString("rg");
+                String telefone = resultado.getString("telefone");
+                boolean cargo = resultado.getBoolean("cargo");
+                String email = resultado.getString("email");
+                String senha = resultado.getString("senha");
+                usuario = new Pessoa(nome, cpfUser, rg, telefone, cargo, email, senha);
             }
             if (temp == 0) {
                 return false;
             } else {
                 return true;
             }
+        }
+    }
+
+    public static Pessoa buscaPessoa(String cpf, String senha) throws SQLException {
+        
+        boolean resultado = consultaCpf(cpf);
+        if(usuario.getSenha().equals(senha)){
+            return usuario;
+        }else{
+            return null;
         }
     }
 }
