@@ -1,6 +1,6 @@
 package VIEW;
 
-import CONTROLLER.PessoaController;
+import controler.PessoaController;
 import MODEL.Pessoa;
 import java.awt.Color;
 import javax.swing.JOptionPane;

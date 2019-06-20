@@ -1,8 +1,10 @@
 
 package VIEW;
 
+import controler.ProdutoController;
 import java.awt.Color;
 import java.awt.Event;
+import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -11,11 +13,17 @@ public class VendasView extends javax.swing.JPanel {
     
     JScrollPane painelTrocas;
     
+    private DefaultComboBoxModel<String> infoComboBox;
+    private int ultimaSelecao;
+    private boolean controleRemocao;
+    private String novaInfo;
+    
     public VendasView() {
         initComponents();
         carregaPagamento();
         ultimaSelecao = 0;
         controleRemocao = true;
+        novaInfo = "";
     }
     
     public VendasView(JScrollPane painelTrocas){
@@ -23,9 +31,6 @@ public class VendasView extends javax.swing.JPanel {
         this.painelTrocas = painelTrocas;
     }
     
-    private DefaultComboBoxModel<String> infoComboBox;
-    private int ultimaSelecao;
-    private boolean controleRemocao;
 
     public void carregaPagamento() {
         this.infoComboBox = new DefaultComboBoxModel<>();
@@ -37,21 +42,43 @@ public class VendasView extends javax.swing.JPanel {
         this.infoComboBox.addElement("Ticket");
     }
     
-    public boolean verificaCampos(){
+    public boolean verificaCampoCod(){
         if(codigoText.getText().isEmpty()){
             this.codigoText.setBackground(Color.RED);
-            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos da venda!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        if(quantText.getText().isEmpty()){
-            this.quantText.setBackground(Color.RED);
-            JOptionPane.showMessageDialog(this, "Verifique se preencheu todos os campos da venda!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
+    
+    public boolean verificaCampos(){
+        if(codigoText.getText().isEmpty()){
+            this.codigoText.setBackground(Color.RED);
+            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if(quantText.getText().isEmpty()){
+            this.quantText.setBackground(Color.RED);
+            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    //evento ativado quando aperta a tecla 
+      public void keyPressed(KeyEvent e){  
+        boolean retorno = verificaCampoCod();
+        
+        if(retorno == false){
+            JOptionPane.showMessageDialog(this, "Verifique se o campo Código está preenchido!","Erro de preenchimento!",JOptionPane.WARNING_MESSAGE);
+        }else{
+            //busca pelo código, conversão de texto para inteiro.
+            int codigo = Integer.parseInt(codigoText.getText());
+            ProdutoController.buscaProdutoCod(codigo);
+            ..
+        }
+     }
     //responsável por verificar a opção selecionada pelo usuário
-    public String retornoOpcaoPagamento(String evento){
+    /*public String retornoOpcaoPagamento(String evento){
         switch(evento){
             case "Dinheiro":
                 return "Dinheiro";
@@ -68,7 +95,7 @@ public class VendasView extends javax.swing.JPanel {
             default:
                 return "";
         }
-    }
+    }*/
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -88,6 +115,7 @@ public class VendasView extends javax.swing.JPanel {
         removerButton = new javax.swing.JButton();
         totalLabel = new javax.swing.JLabel();
         totalLabel2 = new javax.swing.JLabel();
+        exibNomeMercLabel = new javax.swing.JLabel();
 
         vendasLabel.setFont(new java.awt.Font("Roboto", 1, 30)); // NOI18N
         vendasLabel.setText("Vendas");
@@ -107,8 +135,12 @@ public class VendasView extends javax.swing.JPanel {
         formaPgLabel.setText("Forma de Pagamento:");
 
         formaPgCombo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        formaPgCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dinheiro", "Cartão Crédito", "Cartão Débito", "Ticket" }));
         formaPgCombo.setAutoscrolls(true);
+        formaPgCombo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                formaPgComboItemStateChanged(evt);
+            }
+        });
         formaPgCombo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formaPgComboMouseClicked(evt);
@@ -148,6 +180,8 @@ public class VendasView extends javax.swing.JPanel {
         totalLabel2.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         totalLabel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        exibNomeMercLabel.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,7 +191,7 @@ public class VendasView extends javax.swing.JPanel {
                 .addComponent(vendasLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(confirmaButton)
@@ -169,23 +203,28 @@ public class VendasView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(codigoLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(codigoLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(exibNomeMercLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(totalLabel)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(totalLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(quantLabel)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(quantText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(formaPgLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(formaPgCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(totalLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(totalLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(quantLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(quantText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addComponent(formaPgCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(49, 49, 49)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45))))
         );
@@ -199,7 +238,8 @@ public class VendasView extends javax.swing.JPanel {
                         .addGap(149, 149, 149)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(codigoLabel)
-                            .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(exibNomeMercLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(quantLabel)
@@ -245,10 +285,35 @@ public class VendasView extends javax.swing.JPanel {
     }//GEN-LAST:event_formaPgComboActionPerformed
 
     private void formaPgComboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formaPgComboMouseClicked
-            String evento = "";
-            //como pegar o evento
-            evt.getComponent();
+            
     }//GEN-LAST:event_formaPgComboMouseClicked
+
+    /*public boolean verificaExistencia(DefaultComboBoxModel<String> model, String valor) {
+        for (int i = 0; i < model.getSize(); i++) {
+            if (model.getElementAt(i).equals(valor)) {
+                return true;
+            }
+        }
+        return false;
+    }*/
+    private void formaPgComboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_formaPgComboItemStateChanged
+        if (controleRemocao == true) {
+            controleRemocao = false;
+        } else {
+            controleRemocao = true;
+        }
+        //verifica se o índice selecionado é maior que 0
+        if (this.formaPgCombo.getSelectedIndex() > 0) {
+            this.ultimaSelecao = this.formaPgCombo.getSelectedIndex();
+        }
+        //armazena na variável o item selecionado
+        novaInfo = (String) this.formaPgCombo.getSelectedItem();
+        /*if (verificaExistencia(this.infoComboBox, novaInfo) == false && controleRemocao == true) {
+            int indiceAlterado = this.ultimaSelecao;
+            this.infoComboBox.removeElementAt(indiceAlterado);
+            this.infoComboBox.insertElementAt(novaInfo, indiceAlterado);
+        }*/
+    }//GEN-LAST:event_formaPgComboItemStateChanged
     
     
 
@@ -257,6 +322,7 @@ public class VendasView extends javax.swing.JPanel {
     private javax.swing.JLabel codigoLabel;
     private javax.swing.JTextField codigoText;
     private javax.swing.JButton confirmaButton;
+    private javax.swing.JLabel exibNomeMercLabel;
     private javax.swing.JComboBox<String> formaPgCombo;
     private javax.swing.JLabel formaPgLabel;
     private javax.swing.JList<String> itensVendaList;

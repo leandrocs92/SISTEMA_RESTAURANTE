@@ -60,6 +60,11 @@ public class FramePrincipal extends javax.swing.JFrame {
                 cidadesMouseClicked(evt);
             }
         });
+        cidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cidadesActionPerformed(evt);
+            }
+        });
 
         campoTexto.setColumns(20);
         campoTexto.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
@@ -167,6 +172,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         }
         contador.setText(texto.length() + "");
     }//GEN-LAST:event_campoTextoKeyReleased
+
+    private void cidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cidadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cidadesActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
