@@ -24,6 +24,7 @@ public class VendasView extends javax.swing.JPanel {
         ultimaSelecao = 0;
         controleRemocao = true;
         novaInfo = "";
+        this.painelTrocas = painelTrocas;
     }
     
     public VendasView(JScrollPane painelTrocas){

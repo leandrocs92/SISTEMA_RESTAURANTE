@@ -23,6 +23,14 @@ public class Produto {
         this.precoCusto = precoCusto;
     }
 
+    public Produto(String nome, double codigo, double precoVenda, double quantidadeEstoque) {
+        this.nome = nome;
+        this.codigo = codigo;
+        this.precoVenda = precoVenda;
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+    
+
     public String getNome() {
         return nome;
     }
