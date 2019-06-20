@@ -7,6 +7,7 @@ package controler;
 
 import DAO.PessoaDAO;
 import MODEL.Pessoa;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,5 +17,10 @@ public class PessoaController {
     public static boolean criaPessoa(Pessoa novaPessoa){
         boolean resposta = PessoaDAO.criaPessoa(novaPessoa);
         return resposta;
+    }
+
+    public static Pessoa verificaUser(String cpf, String senha) throws SQLException {
+        Pessoa novaPessoa = PessoaDAO.buscaPessoa(cpf, senha);
+        return novaPessoa;
     }
 }
