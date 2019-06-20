@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 
 public class VendasView extends javax.swing.JPanel {
     
-    JScrollPane painelTrocas;
+    private JScrollPane painelTrocas;
     
     private DefaultComboBoxModel<String> infoComboBox;
     private int ultimaSelecao;
