@@ -1,4 +1,3 @@
-
 package VIEW;
 
 import controler.ProdutoController;
@@ -10,14 +9,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class VendasView extends javax.swing.JPanel {
-    
+
     private JScrollPane painelTrocas;
-    
+
     private DefaultComboBoxModel<String> infoComboBox;
     private int ultimaSelecao;
     private boolean controleRemocao;
     private String novaInfo;
-    
+
     public VendasView() {
         initComponents();
         carregaPagamento();
@@ -26,12 +25,11 @@ public class VendasView extends javax.swing.JPanel {
         novaInfo = "";
         this.painelTrocas = painelTrocas;
     }
-    
-    public VendasView(JScrollPane painelTrocas){
+
+    public VendasView(JScrollPane painelTrocas) {
         initComponents();
         this.painelTrocas = painelTrocas;
     }
-    
 
     public void carregaPagamento() {
         this.infoComboBox = new DefaultComboBoxModel<>();
@@ -42,42 +40,53 @@ public class VendasView extends javax.swing.JPanel {
         this.infoComboBox.addElement("Cartão Crédito");
         this.infoComboBox.addElement("Ticket");
     }
-    
-    public boolean verificaCampoCod(){
-        if(codigoText.getText().isEmpty()){
+
+    public boolean verificaCampoCod() {
+        if (codigoText.getText().isEmpty()) {
             this.codigoText.setBackground(Color.RED);
-            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!", "Preenchimento com erro!", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
+
+    //chamado caso tenha problemas ao efetuar a venda. Limpa os campos para recomeçar 
+    //(verificar na execução maiores finalidades
+    public void limpaCampos() {
+        codigoText.setText("");
+        quantText.setText("");
+        totalLabel2.setText("");
+        //itensVendaList.removeAll(); nao removerá a lista apenas o item inserido
+    }
     
-    public boolean verificaCampos(){
-        if(codigoText.getText().isEmpty()){
+    public boolean verificaCampos() {
+        if (codigoText.getText().isEmpty()) {
             this.codigoText.setBackground(Color.RED);
-            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!", "Preenchimento com erro!", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        if(quantText.getText().isEmpty()){
+        if (quantText.getText().isEmpty()) {
             this.quantText.setBackground(Color.RED);
-            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!","Preenchimento com erro!",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Verifique se os campos da venda foram preenchidos!", "Preenchimento com erro!", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
+
     //evento ativado quando aperta a tecla 
-      public void keyPressed(KeyEvent e){  
+    public void keyPressed(KeyEvent e) {
         boolean retorno = verificaCampoCod();
-        
-        if(retorno == false){
-            JOptionPane.showMessageDialog(this, "Verifique se o campo Código está preenchido!","Erro de preenchimento!",JOptionPane.WARNING_MESSAGE);
-        }else{
+
+        if (retorno == false) {
+            JOptionPane.showMessageDialog(this, "Verifique se o campo Código está preenchido!", "Erro de preenchimento!", JOptionPane.WARNING_MESSAGE);
+        } else {
             //busca pelo código, conversão de texto para inteiro.
             int codigo = Integer.parseInt(codigoText.getText());
             ProdutoController.buscaProdutoCod(codigo);
             ..
         }
-     }
+    }
+
     //responsável por verificar a opção selecionada pelo usuário
     /*public String retornoOpcaoPagamento(String evento){
         switch(evento){
@@ -97,7 +106,6 @@ public class VendasView extends javax.swing.JPanel {
                 return "";
         }
     }*/
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,6 +134,11 @@ public class VendasView extends javax.swing.JPanel {
         codigoLabel.setText("Código:");
 
         codigoText.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        codigoText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoTextActionPerformed(evt);
+            }
+        });
 
         quantLabel.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         quantLabel.setText("Quantidade:");
@@ -272,12 +285,12 @@ public class VendasView extends javax.swing.JPanel {
 
     private void confirmaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmaButtonActionPerformed
         boolean retorno = verificaCampos();
-        
-        if(retorno != false){
-            JOptionPane.showMessageDialog(this, "Venda efetuada com sucesso!","Venda Efetuada!",JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            JOptionPane.showMessageDialog(this, "As informações não foram preenchidas corretamente!","Erro de Preenchimento!" ,JOptionPane.WARNING_MESSAGE);
-            ..
+
+        if (retorno != false) {
+            JOptionPane.showMessageDialog(this, "Venda efetuada com sucesso!", "Venda Efetuada!", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "As informações não foram preenchidas corretamente!", "Erro de Preenchimento!", JOptionPane.WARNING_MESSAGE);
+            limpaCampos();
         }
     }//GEN-LAST:event_confirmaButtonActionPerformed
 
@@ -286,7 +299,7 @@ public class VendasView extends javax.swing.JPanel {
     }//GEN-LAST:event_formaPgComboActionPerformed
 
     private void formaPgComboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formaPgComboMouseClicked
-            
+
     }//GEN-LAST:event_formaPgComboMouseClicked
 
     /*public boolean verificaExistencia(DefaultComboBoxModel<String> model, String valor) {
@@ -315,8 +328,11 @@ public class VendasView extends javax.swing.JPanel {
             this.infoComboBox.insertElementAt(novaInfo, indiceAlterado);
         }*/
     }//GEN-LAST:event_formaPgComboItemStateChanged
-    
-    
+
+    private void codigoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoTextActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelarButton;

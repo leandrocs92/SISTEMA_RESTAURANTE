@@ -1,4 +1,3 @@
-
 package DAO;
 
 import java.sql.Connection;
@@ -11,7 +10,7 @@ import MODEL.Produto;
 import TOOLS.FabricaConexao;
 
 public class ProdutoDAO {
-     
+
     public static Produto buscaProduto(int codMerc) {
         try (Connection con = FabricaConexao.criaConexao()) {
             String sql = "select * from produto where codigo = ?";

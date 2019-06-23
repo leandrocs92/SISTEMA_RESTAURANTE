@@ -1,0 +1,2 @@
+Verificar como será efetuada a busca da mercadoria no ato da venda. "Botão ou comando via teclado" (TAB, ENTER) (BOTÃO CONFIRMAR - VALIDAÇÃO DE INFORMAÇÕES)
+Inserção de dados na lista (verificar necessidade) - Manipulação das informações (Inclusçaõ e exclusão)
