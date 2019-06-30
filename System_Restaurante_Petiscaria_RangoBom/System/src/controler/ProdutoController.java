@@ -5,7 +5,7 @@ import MODEL.Produto;
 
 public class ProdutoController {
 
-    public static Produto buscaProdutoCod(int codigo) {
+    public static Produto buscaProdutoCod(double codigo) {
         //chamar metodo DAO
         Produto produtoBusca = ProdutoDAO.buscaProduto(codigo);
         return produtoBusca;

@@ -11,12 +11,12 @@ import TOOLS.FabricaConexao;
 
 public class ProdutoDAO {
 
-    public static Produto buscaProduto(int codMerc) {
+    public static Produto buscaProduto(double codMerc) {
         try (Connection con = FabricaConexao.criaConexao()) {
             String sql = "select * from produto where codigo = ?";
             //configurando a sql para ser executada em banco de dados
             PreparedStatement consulta = con.prepareStatement(sql);
-            consulta.setInt(1, codMerc);
+            consulta.setDouble(1, codMerc);
             ResultSet resultado = consulta.executeQuery();
             while (resultado.next()) {
                 String nome = resultado.getString("nome");
