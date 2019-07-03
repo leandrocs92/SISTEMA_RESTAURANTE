@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DAO;
 
 import MODEL.Pessoa;
@@ -15,13 +11,11 @@ import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author LEANDRO
- */
+
 public class PessoaDAO {
 
     private static Pessoa usuario;
+
     public static boolean criaPessoa(Pessoa novaPessoa) {
         try {
             if (!consultaCpf(novaPessoa.getCpf())) {
@@ -79,11 +73,11 @@ public class PessoaDAO {
     }
 
     public static Pessoa buscaPessoa(String cpf, String senha) throws SQLException {
-        
+
         boolean resultado = consultaCpf(cpf);
-        if(usuario.getSenha().equals(senha)){
+        if (usuario.getSenha().equals(senha)) {
             return usuario;
-        }else{
+        } else {
             return null;
         }
     }
