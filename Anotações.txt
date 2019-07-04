@@ -5,3 +5,5 @@ concluir uma venda  - pegar os produo6
 
 ideia sobre a busca do produto apos ser inserido o código (tecla TAB ao inves de ENTER)
 
+criar vetor para controlar quantidades inseridas e trabalhar jundo com os itens da lista.
+
