@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import VIEW.VendasView;
 
 public class Login extends javax.swing.JPanel {
 
